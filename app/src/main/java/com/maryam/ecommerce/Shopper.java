@@ -10,7 +10,7 @@ public class Shopper {
         this.password = password;
     }
 
-    public boolean isValid(String username, String password){
-        return true;
+    public boolean login(String username, String password){
+        return (this.username == username) && (this.password == password);
     }
 }
