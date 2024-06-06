@@ -1,2 +1,7 @@
-package com.maryam.ecommerce;public class LoginActivity {
+package com.maryam.ecommerce;
+
+public class LoginActivity {
+    //
+
+
 }
