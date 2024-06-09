@@ -10,6 +10,10 @@
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.17099914550781253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22751620059800853" />
+        <entry key="app/src/main/res/layout/fragment_basket.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.14387031408308004" />
+        <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.14387031408308004" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
