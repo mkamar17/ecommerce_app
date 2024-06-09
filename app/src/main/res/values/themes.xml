@@ -5,4 +5,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!-- Custom style for BottomNavigationView -->
+    <style name="BottomNavigationViewStyle">
+        <item name="itemIconTint">#0000</item>
+        <item name="itemTextColor">#0000</item>
+        <item name="android:background">#0000</item>
+    </style>
 </resources>
