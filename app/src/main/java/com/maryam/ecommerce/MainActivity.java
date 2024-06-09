@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
         //setContentView(R.layout.activity_main);
 
+        //added new fragments
+
         finish();
     }
 }
