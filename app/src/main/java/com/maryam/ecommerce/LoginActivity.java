@@ -38,11 +38,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (shopper.login(username, password)) {
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
-                    setContentView(R.layout.activity_home); //changes the layout
+                    //setContentView(R.layout.activity_home); //changes the layout
 
-                    //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    //startActivity(intent);
-                    //finish(); // Close the LoginActivity
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // Close the LoginActivity
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
