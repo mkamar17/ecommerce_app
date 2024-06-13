@@ -32,33 +32,44 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // below line is to get data from all edit text fields.
-                String firstName = firstNameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
-                String username = newUsernameEditText.getText().toString();
-                String password = newPasswordEditText.getText().toString();
+                boolean isUnique;
 
-                // validating if the text fields are empty or not.
-                if (firstName.isEmpty() && lastName.isEmpty() && username.isEmpty() && password.isEmpty()) {
-                    Toast.makeText(SignupActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                do {
+                    // below line is to get data from all edit text fields.
+                    String firstName = firstNameEditText.getText().toString();
+                    String lastName = lastNameEditText.getText().toString();
+                    String username = newUsernameEditText.getText().toString();
+                    String password = newPasswordEditText.getText().toString();
 
-                // on below line we are calling a method to add new
-                // course to sqlite data and pass all our values to it.
-                dbHandler.addNewShopper(firstName, lastName, username, password);
+                    // validating if the text fields are empty or not.
+                    if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                        Toast.makeText(SignupActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                // after adding the data we are displaying a toast message.
-                Toast.makeText(SignupActivity.this, "Account has been created.", Toast.LENGTH_SHORT).show();
-                firstNameEditText.setText("");
-                lastNameEditText.setText("");
-                newUsernameEditText.setText("");
-                newPasswordEditText.setText("");
+                    isUnique = dbHandler.addNewShopper(firstName, lastName, username, password);
+                    // on below line we are calling a method to add new
+                    // course to sqlite data and pass all our values to it.
+                    if (!isUnique) {
+                        Toast.makeText(SignupActivity.this, "Account already exists or username taken.", Toast.LENGTH_SHORT).show();
+                        //clearing the username field
+                        newUsernameEditText.setText("");
+                    } else {
+                        Toast.makeText(SignupActivity.this, "Account has been created.", Toast.LENGTH_SHORT).show();
 
-                //when done change activity
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Close the LoginActivity
+                        // after adding the data we are displaying a toast message.
+                        firstNameEditText.setText("");
+                        lastNameEditText.setText("");
+                        newUsernameEditText.setText("");
+                        newPasswordEditText.setText("");
+
+                        //when done change activity
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish(); // Close the LoginActivity
+                    }
+                } while (!isUnique);
+
             }
         });
     }

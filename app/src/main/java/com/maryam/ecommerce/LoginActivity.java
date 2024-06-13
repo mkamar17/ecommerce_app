@@ -17,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private Button signupButton;
+    private DBHandler dbHandler;
+    //private Shopper shopper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +30,18 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         signupButton = findViewById(R.id.signupButton);
 
+        dbHandler = new DBHandler(LoginActivity.this);
+
+        //shopper.get
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                //for now making a new shopper
-                Shopper shopper = new Shopper("john","kane",username, password);
-
-                if (shopper.login(username, password)) {
+                if (dbHandler.existingUser(username,password)) {
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-
-                    //setContentView(R.layout.activity_home); //changes the layout
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

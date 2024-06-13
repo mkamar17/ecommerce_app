@@ -11,7 +11,17 @@ public class Shopper {
         this.password = password;
     }
 
-    public boolean login(String username, String password){
-        return (this.username == username) && (this.password == password);
+    public String getFirstname(){return firstname;}
+    public String getLastname(){return lastname;}
+    public String getUsername(){return username;}
+    public String getPassword(){return password;}
+
+    public void setUsername(String username){
+        this.username = username;
     }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
 }

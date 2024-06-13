@@ -2,6 +2,7 @@ package com.maryam.ecommerce;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -57,12 +58,16 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // this method is use to add new course to our sqlite database.
-    public void addNewShopper(String firstname, String lastname, String username, String password) {
+    public boolean addNewShopper(String firstname, String lastname, String username, String password) {
 
         // on below line we are creating a variable for
         // our sqlite database and calling writable method
         // as we are writing data in our database.
         SQLiteDatabase db = this.getWritableDatabase();
+
+        if (existingUser(username,password)){
+            return false;
+        }
 
         // on below line we are creating a
         // variable for content values.
@@ -86,7 +91,25 @@ public class DBHandler extends SQLiteOpenHelper {
         // at last we are closing our
         // database after adding database.
         db.close();
+        return true;
     }
+
+    public boolean existingUser(String username, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //check if the username already exists
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME_COL +  " = ? AND " + PASSWORD_COL + " = ?"; //? is a placeholder for a parameter
+        Cursor cursor = db.rawQuery(query, new String[]{username,password});
+
+        if (cursor.getCount() > 0){
+            cursor.close();
+            db.close();
+            return true;
+        }
+
+        return false;
+    };
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
