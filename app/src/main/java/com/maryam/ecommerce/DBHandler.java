@@ -8,30 +8,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    // creating a constant variables for our database.
-    // below variable is for our database name.
+    //constants
     private static final String DB_NAME = "ecommercedb";
 
-    // below int is our database version
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
-    // below variable is for our table name.
-    private static final String TABLE_NAME = "user_accounts";
-
-    // below variable is for our id column.
-    private static final String ID_COL = "id";
-
-    // below variable is for our course name column
+    private static final String TABLE_USERACCOUNTS = "user_accounts";
+    private static final String USER_ID_COL = "id";
     private static final String FIRSTNAME_COL = "firstname";
-
-    // below variable id for our course duration column.
     private static final String LASTNAME_COL = "lastname";
-
-    // below variable for our course description column.
     private static final String USERNAME_COL = "username";
-
-    // below variable is for our course tracks column.
     private static final String PASSWORD_COL = "password";
+
+    private static final String TABLE_PRODUCTS = "products";
+    private static final String PRODUCT_ID_COL = "productID";
+    private static final String PRODUCT_NAME_COL = "product_name";
+    private static final String PRODUCT_DESCRIPTION_COL = "product_description";
 
     // creating a constructor for our database handler.
     public DBHandler(Context context) {
@@ -45,16 +37,20 @@ public class DBHandler extends SQLiteOpenHelper {
         // an sqlite query and we are
         // setting our column names
         // along with their data types.
-        String query = "CREATE TABLE " + TABLE_NAME + " ("
-                + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String query1 = "CREATE TABLE " + TABLE_USERACCOUNTS + " ("
+                + USER_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + FIRSTNAME_COL + " TEXT,"
                 + LASTNAME_COL + " TEXT,"
                 + USERNAME_COL + " TEXT,"
                 + PASSWORD_COL + " TEXT)";
 
-        // at last we are calling a exec sql
-        // method to execute above sql query
-        db.execSQL(query);
+        String query2 = "CREATE TABLE " + TABLE_PRODUCTS + " ("
+                + PRODUCT_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + PRODUCT_NAME_COL + " TEXT,"
+                + PRODUCT_DESCRIPTION_COL+ " TEXT)";
+
+        db.execSQL(query1);
+        db.execSQL(query2);
     }
 
     // this method is use to add new course to our sqlite database.
@@ -86,7 +82,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // after adding all values we are passing
         // content values to our table.
-        db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_USERACCOUNTS, null, values);
 
         // at last we are closing our
         // database after adding database.
@@ -98,7 +94,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //check if the username already exists
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME_COL +  " = ? AND " + PASSWORD_COL + " = ?"; //? is a placeholder for a parameter
+        String query = "SELECT * FROM " + TABLE_USERACCOUNTS + " WHERE " + USERNAME_COL +  " = ? AND " + PASSWORD_COL + " = ?"; //? is a placeholder for a parameter
         Cursor cursor = db.rawQuery(query, new String[]{username,password});
 
         if (cursor.getCount() > 0){
@@ -114,7 +110,9 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // this method is called to check if the table exists already.
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERACCOUNTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+
         onCreate(db);
     }
 }
