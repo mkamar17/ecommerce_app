@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 //for now making a new shopper
-                Shopper shopper = new Shopper(username, password);
+                Shopper shopper = new Shopper("john","kane",username, password);
 
                 if (shopper.login(username, password)) {
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();

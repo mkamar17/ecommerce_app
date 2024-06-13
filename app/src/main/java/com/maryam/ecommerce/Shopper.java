@@ -2,10 +2,11 @@ package com.maryam.ecommerce;
 
 public class Shopper {
 
-    String username;
-    String password;
+    private String firstname, lastname, username, password;
 
-    public Shopper(String username, String password){
+    public Shopper(String firstname, String lastname, String username, String password){
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
     }

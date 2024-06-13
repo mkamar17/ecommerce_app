@@ -11,10 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText firstNameEditText;
-    private EditText lastNameEditText;
-    private EditText newUsernameEditText;
-    private EditText newPasswordEditText;
+    private EditText firstNameEditText, lastNameEditText, newUsernameEditText, newPasswordEditText;
     private Button createAccountButton;
     private DBHandler dbHandler;
 
@@ -49,10 +46,10 @@ public class SignupActivity extends AppCompatActivity {
 
                 // on below line we are calling a method to add new
                 // course to sqlite data and pass all our values to it.
-                dbHandler.addNewCourse(firstName, lastName, username, password);
+                dbHandler.addNewShopper(firstName, lastName, username, password);
 
                 // after adding the data we are displaying a toast message.
-                Toast.makeText(SignupActivity.this, "Course has been added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this, "Account has been created.", Toast.LENGTH_SHORT).show();
                 firstNameEditText.setText("");
                 lastNameEditText.setText("");
                 newUsernameEditText.setText("");
