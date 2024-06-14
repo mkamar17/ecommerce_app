@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHandler extends SQLiteOpenHelper {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+public class DBHandler extends SQLiteOpenHelper {
     //constants
     private static final String DB_NAME = "ecommercedb";
 
@@ -23,69 +25,59 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_PRODUCTS = "products";
     private static final String PRODUCT_ID_COL = "productID";
     private static final String PRODUCT_NAME_COL = "product_name";
-    private static final String PRODUCT_DESCRIPTION_COL = "product_description";
+    private static final String PRODUCT_FOODGROUP_COL = "food_group";
+    private static final String PRODUCT_DIETPREF_COL = "dietary_preferences";
+    private static final String PRODUCT_CUISINE_COL = "cuisine";
 
-    // creating a constructor for our database handler.
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    // below method is for creating a database by running a sqlite query
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // on below line we are creating
-        // an sqlite query and we are
-        // setting our column names
-        // along with their data types.
-        String query1 = "CREATE TABLE " + TABLE_USERACCOUNTS + " ("
+
+        String createUserAccountsTable = "CREATE TABLE " + TABLE_USERACCOUNTS + " ("
                 + USER_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + FIRSTNAME_COL + " TEXT,"
                 + LASTNAME_COL + " TEXT,"
                 + USERNAME_COL + " TEXT,"
                 + PASSWORD_COL + " TEXT)";
 
-        String query2 = "CREATE TABLE " + TABLE_PRODUCTS + " ("
+        db.execSQL(createUserAccountsTable);
+
+        String createProductsTable = "CREATE TABLE " + TABLE_PRODUCTS + " ("
                 + PRODUCT_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + PRODUCT_NAME_COL + " TEXT,"
-                + PRODUCT_DESCRIPTION_COL+ " TEXT)";
+                + PRODUCT_FOODGROUP_COL + " TEXT,"
+                + PRODUCT_DIETPREF_COL + " TEXT,"
+                + PRODUCT_CUISINE_COL + " TEXT)";
 
-        db.execSQL(query1);
-        db.execSQL(query2);
+        db.execSQL(createProductsTable);
+
+        //insertProducts(db)
     }
 
-    // this method is use to add new course to our sqlite database.
+
     public boolean addNewShopper(String firstname, String lastname, String username, String password) {
 
-        // on below line we are creating a variable for
-        // our sqlite database and calling writable method
-        // as we are writing data in our database.
         SQLiteDatabase db = this.getWritableDatabase();
 
         if (existingUser(username,password)){
             return false;
         }
 
-        // on below line we are creating a
-        // variable for content values.
         ContentValues values = new ContentValues();
 
-        // on below line we are passing all values
-        // along with its key and value pair.
-        values.put(FIRSTNAME_COL, firstname);
+        values.put(FIRSTNAME_COL, firstname); //key-value pairs
         values.put(LASTNAME_COL, lastname);
         values.put(USERNAME_COL, username);
         values.put(PASSWORD_COL, password);
 
         //also create a new shopper object
-
         Shopper shopper = new Shopper(firstname, lastname, username, password);
 
-        // after adding all values we are passing
-        // content values to our table.
         db.insert(TABLE_USERACCOUNTS, null, values);
 
-        // at last we are closing our
-        // database after adding database.
         db.close();
         return true;
     }
@@ -104,12 +96,45 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return false;
-    };
+    }
 
+    private void insertProducts(SQLiteDatabase db) {
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+
+            // Define products
+            Product[] products = {
+                    new Product("Apple","Fruits", new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Pear","Fruits", new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Banana","Fruits",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Orange","Fruits",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Grapes","Fruits",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Broccoli","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Carrot","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Cucumber","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Potato","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Lettuce","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Tomato","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Italian"),
+                    new Product("Milk","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null)
+                    // Add more products here
+            };
+
+//            // Insert products into database
+//            for (Product product : products) {
+//                values.put(COLUMN_PRODUCT_NAME, product.getProductName());
+//                values.put(COLUMN_PRODUCT_IMAGE, product.getProductImage());
+//                db.insert(TABLE_PRODUCTS, null, values);
+//            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // this method is called to check if the table exists already.
+        //checks if the table exists already and rewrites it
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERACCOUNTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
 
