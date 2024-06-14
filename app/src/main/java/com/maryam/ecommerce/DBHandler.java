@@ -116,8 +116,23 @@ public class DBHandler extends SQLiteOpenHelper {
                     new Product("Potato","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
                     new Product("Lettuce","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
                     new Product("Tomato","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Italian"),
-                    new Product("Milk","Vegetables",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null)
-                    // Add more products here
+                    new Product("Milk","Dairy",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Vegan milk","Dairy",new ArrayList<>(Arrays.asList("Vegan","Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Butter","Dairy",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Eggs","Dairy",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Yoghurt","Dairy",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Vegan yoghurt","Dairy",new ArrayList<>(Arrays.asList("Vegan","Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Mozzarella cheese","Dairy",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),"Italian"),
+                    new Product("Vegan cheese","Dairy",new ArrayList<>(Arrays.asList("Vegan","Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Pizza","Frozen food",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),"Italian"),
+                    new Product("Ice cream","Frozen food",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),null),
+                    new Product("Vegan ice cream","Frozen food",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal")),null),
+                    new Product("Fish cod","Frozen food",new ArrayList<>(Arrays.asList("Halal")),null),
+                    new Product("Baby chicken (halal)","Frozen food",new ArrayList<>(Arrays.asList("Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Chicken nuggets","Frozen food",new ArrayList<>(Arrays.asList("Gluten-Free", "Dairy-free")),null),
+                    new Product("Lamb cubes (halal)","Frozen food",new ArrayList<>(Arrays.asList("Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Pork salami","Frozen food",new ArrayList<>(Arrays.asList("Gluten-Free", "Dairy-Free")),null),
+                    new Product("Sausages","Frozen food",new ArrayList<>(Arrays.asList("Gluten-Free", "Dairy-Free")),null),
             };
 
 //            // Insert products into database
