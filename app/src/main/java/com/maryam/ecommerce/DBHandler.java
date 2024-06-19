@@ -54,6 +54,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.execSQL(createProductsTable);
 
+        //UNCOMMENT LATER
         //insertProducts(db)
     }
 
@@ -103,7 +104,7 @@ public class DBHandler extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
 
-            // Define products
+            //products array
             Product[] products = {
                     new Product("Apple","Fruits", new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
                     new Product("Pear","Fruits", new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
@@ -133,6 +134,42 @@ public class DBHandler extends SQLiteOpenHelper {
                     new Product("Lamb cubes (halal)","Frozen food",new ArrayList<>(Arrays.asList("Halal", "Gluten-Free", "Dairy-Free")),null),
                     new Product("Pork salami","Frozen food",new ArrayList<>(Arrays.asList("Gluten-Free", "Dairy-Free")),null),
                     new Product("Sausages","Frozen food",new ArrayList<>(Arrays.asList("Gluten-Free", "Dairy-Free")),null),
+                    new Product("Ketchup","Condiments",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Mayo","Condiments",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Vegan mayo","Condiments",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Honey","Condiments",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Baguette","Breads",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"French"),
+                    new Product("White bread","Breads",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),null),
+                    new Product("Gluten-free white bread","Breads",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free","Dairy-Free")),null),
+                    new Product("Brioche","Breads",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Dairy-Free")),null),
+                    new Product("Ketchup","Breads",new ArrayList<>(Arrays.asList("Vegan","Vegetarian", "Halal", "Gluten-Free","Dairy-Free")),null),
+                    new Product("Milk chocolate bar","Snacks",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),null),
+                    new Product("Vegan cookies","Snacks",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),null),
+                    new Product("Gluten-free cookies","Snacks",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Gluten-Free")),null),
+                    new Product("Sea-salt crisps","Snacks",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Dairy-Free")),null),
+                    new Product("Dairy-free cupcakes","Snacks",new ArrayList<>(Arrays.asList("Vegetarian", "Halal", "Dairy-Free")),null),
+                    new Product("Wine","Beverages",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Orange juice","Beverages",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free","Dairy-Free")),null),
+                    new Product("Coffee packets","Beverages",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free","Dairy-Free")),null),
+                    new Product("Tea packets","Beverages",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free","Dairy-Free")),null),
+                    new Product("Spaghetti","Pasta",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"Italian"),
+                    new Product("Penne pasta","Pasta",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"Italian"),
+                    new Product("Ravioli","Pasta",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"Italian"),
+                    new Product("Hummus","Lebanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Lebanese"),
+                    new Product("Pita bread","Lebanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"Lebanese"),
+                    new Product("Tabbouleh salad","Lebanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Lebanese"),
+                    new Product("Kibbeh","Lebanese selection (exclusive)",new ArrayList<>(Arrays.asList("Halal", "Gluten-Free", "Dairy-Free")),"Lebanese"),
+                    new Product("Pain Au Chocolat","French selection (exclusive)",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),"French"),
+                    new Product("Croissant","French selection (exclusive)",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),"French"),
+                    new Product("Chocolate eclairs","French selection (exclusive)",new ArrayList<>(Arrays.asList("Vegetarian", "Halal")),"French"),
+                    new Product("Vegetable sushi","Japanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Japanese"),
+                    new Product("Ramen noodles","Japanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),"Japanese"),
+                    new Product("Sticky rice","Japanese selection (exclusive)",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),"Japanese"),
+                    new Product("Raw salmon","Japanese selection (exclusive)",new ArrayList<>(Arrays.asList("Halal", "Gluten-Free", "Dairy-Free")),"Japanese"),
+                    new Product("Sugar","Cooking ingredients",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Cocoa powder","Cooking ingredients",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Baking powder","Cooking ingredients",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Gluten-Free", "Dairy-Free")),null),
+                    new Product("Flour","Cooking ingredients",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),null)
             };
 
 //            // Insert products into database
