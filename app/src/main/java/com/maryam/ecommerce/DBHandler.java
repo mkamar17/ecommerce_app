@@ -103,6 +103,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
+            Gson gson = new Gson();
 
             //products array
             Product[] products = {
@@ -172,12 +173,14 @@ public class DBHandler extends SQLiteOpenHelper {
                     new Product("Flour","Cooking ingredients",new ArrayList<>(Arrays.asList("Vegan", "Vegetarian", "Halal", "Dairy-Free")),null)
             };
 
-//            // Insert products into database
-//            for (Product product : products) {
-//                values.put(COLUMN_PRODUCT_NAME, product.getProductName());
-//                values.put(COLUMN_PRODUCT_IMAGE, product.getProductImage());
-//                db.insert(TABLE_PRODUCTS, null, values);
-//            }
+            for (Product product : products) {
+                values.put(PRODUCT_NAME_COL, product.getProductName());
+                values.put(PRODUCT_FOODGROUP_COL, product.getFoodGroup());
+                String dietPrefJson = gson.toJson(product.getDietPref());
+                values.put(PRODUCT_DIETPREF_COL, dietPrefJson);
+                values.put(PRODUCT_CUISINE_COL, product.getCuisine());
+                db.insert(TABLE_PRODUCTS, null, values);
+            }
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
